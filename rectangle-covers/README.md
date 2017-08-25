@@ -1,10 +1,8 @@
 # Rectangle covers
 
-Solves problems such as problem number 834 (nr 126, 34/2017).
+Solves problems such as problem number 834 (nr 126, 34/2017). Finds a solution which minimizes the sum of alsolute values of the entries. 
 
-Finds a solution which minimizes the sum of alsolute values of the entries. 
-
-Requires the midex-integer solver from Mosek www.mosek.com.
+Requires the midex-integer solver from Mosek www.mosek.com and Python.
 
 ## Example
 

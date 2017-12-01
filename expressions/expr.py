@@ -4,6 +4,7 @@
 # Python 2
 import math
 import itertools
+import sys
 
 class Expr:
 	def __init__(self,args):
@@ -169,8 +170,14 @@ def solve(inputs, target, nops, threads, unary, binary):
 				except:
 					pass
 
+
+target = int(sys.argv[1])
+inputs = map(lambda x: int(x), sys.argv[2:-1])
+numops = int(sys.argv[-1])
+print target, inputs, numops
+solve(inputs, target, numops, 0, [Sqrt, Factorial], [Minus, Plus, Mul, Div, Pow])
 #solve([2, 3], 9, 4, 0, [Sqrt, Factorial], [Minus, Plus, Mul, Div, Pow] )
-solve([2, 3, 5], 81, 6, 0, [Sqrt, Factorial], [Minus, Plus, Mul, Div, Pow] )
+#solve([2, 3, 5], 81, 6, 0, [Sqrt, Factorial], [Minus, Plus, Mul, Div, Pow] )
 #solve([1,5,4], 27, 2, 0, [Sqrt, Factorial], [Minus, Plus, Mul, Div] ) 
 #solve([0,4,5,6], 43, 4, 0, [Sqrt, Factorial], [Minus, Plus, Mul, Div] ) #923
 #ex = solve([1,1,3,6], 44, 4, 0, [Sqrt, Factorial], [Minus, Plus, Mul, Div] ) #924

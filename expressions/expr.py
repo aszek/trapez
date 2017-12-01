@@ -51,7 +51,10 @@ class Expr2(Expr):
 		lhs = self.args[0].eval(vlist[:self.args[0].vars])
 		rhs = self.args[1].eval(vlist[self.args[0].vars:])
 		if lhs is not None and rhs is not None:
-			return self.fun(lhs, rhs)
+			try:
+				return self.fun(lhs, rhs)
+			except:
+				return None
 		else:
 			return None
 
@@ -84,6 +87,21 @@ class Div(Expr2):
 	def __init__(self, args):
 		self.oper = '/'
 		self.fun = self.div
+		Expr.__init__(self, args)
+
+class Pow(Expr2):
+	@staticmethod
+	def pow(x, y):
+		if x>100 or y>10000:
+			return None
+		try:
+			return x**y
+		except:
+			return None
+
+	def __init__(self, args):
+		self.oper = '^'
+		self.fun = self.pow
 		Expr.__init__(self, args)
 
 class Factorial(Expr1Postfix):
@@ -145,10 +163,15 @@ def solve(inputs, target, nops, threads, unary, binary):
 			print i, p
 			for e in ex[(i,len(inputs))]:
 				val = e.eval(p)
-				if val and math.fabs(val-target)<1e-6:
-					print e.printf(p)
+				try:
+					if val and math.fabs(val-target)<1e-6:
+						print e.printf(p)
+				except:
+					pass
 
+#solve([2, 3], 9, 4, 0, [Sqrt, Factorial], [Minus, Plus, Mul, Div, Pow] )
+solve([2, 3, 5], 81, 6, 0, [Sqrt, Factorial], [Minus, Plus, Mul, Div, Pow] )
 #solve([1,5,4], 27, 2, 0, [Sqrt, Factorial], [Minus, Plus, Mul, Div] ) 
 #solve([0,4,5,6], 43, 4, 0, [Sqrt, Factorial], [Minus, Plus, Mul, Div] ) #923
 #ex = solve([1,1,3,6], 44, 4, 0, [Sqrt, Factorial], [Minus, Plus, Mul, Div] ) #924
-solve([0,2,3,7], 139, 6, 0, [Sqrt, Factorial], [Minus, Plus, Mul, Div] ) #925
+#solve([0,2,3,7], 139, 6, 0, [Sqrt, Factorial], [Minus, Plus, Mul, Div] ) #925
